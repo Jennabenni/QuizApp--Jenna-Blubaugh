@@ -7,6 +7,9 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
 
+
+  //the styles, of course
+  //the font has to be small so the user doesn't have to scroll
 summaryStyle:{
 fontSize: "1.1em",
 textAlign: "center",
@@ -45,12 +48,9 @@ fontSize: "2em"
 
 
 
+//receives users answers and the quiz data (params)
 
-
-
-
-
-
+//if it's empty, no data (online tutorial recommended)
 const SummaryComponent = ({ route }) => {
   const { answers = [], questions = [] } = route.params || {};
 
@@ -58,13 +58,15 @@ const SummaryComponent = ({ route }) => {
     return <Text>No quiz data available.</Text>;
   }
 
-  // Calculate total score
+  //total, start at zero
   let totalScore = 0;
 
+  //determines if the person is correct, checks their answer and whatnot
+  //gets an "isCorrect" property
   const updatedAnswers = answers.map(answer => {
     const question = questions[answer.questionIndex];
 
-    // Check if the question is multiple-answer or single-answer
+    //multiple-answer or single-answer??
     const isCorrect = Array.isArray(question.correct)
       ? Array.isArray(answer.selectedAnswer) &&
         question.correct.length === answer.selectedAnswer.length &&
@@ -81,6 +83,9 @@ const SummaryComponent = ({ route }) => {
     };
   });
 
+
+  //this is the format of the summary, and shows the bolds and cross outs
+// I added other styles here too to try and make it look nicer
   return (
     <View style={styles.backgroundSummary}>
       <Text testID="total" style={styles.summaryTitle}>Total Score: {totalScore}</Text>
@@ -95,18 +100,18 @@ const SummaryComponent = ({ route }) => {
             {question.choices.map((choice, idx) => {
               let style = {
 
-fontSize: "14px",
-marginLeft: "auto",
-marginRight: "auto"
+                fontSize: "14px",
+                marginLeft: "auto",
+                marginRight: "auto"
               };
               let choiceText = choice;
 
               if (Array.isArray(question.correct)) {
                 if (question.correct.includes(idx) && Array.isArray(answer.selectedAnswer) && answer.selectedAnswer.includes(idx)) {
                   style = { fontWeight: 'bold' ,
-fontSize: "14px",
-marginLeft: "auto",
-marginRight: "auto"
+                  fontSize: "14px",
+                  marginLeft: "auto",
+                  marginRight: "auto"
 
 
 
@@ -117,9 +122,9 @@ marginRight: "auto"
 
 
 
-fontSize: "14px",
-marginLeft: "auto",
-marginRight: "auto"
+                  fontSize: "14px",
+                  marginLeft: "auto",
+                  marginRight: "auto"
 
 
 
@@ -131,9 +136,9 @@ marginRight: "auto"
 
 
 
-fontSize: "14px",
-marginLeft: "auto",
-marginRight: "auto"
+                  fontSize: "14px",
+                  marginLeft: "auto",
+                  marginRight: "auto"
 
 
 
@@ -143,9 +148,9 @@ marginRight: "auto"
                 if (idx === question.correct && idx === answer.selectedAnswer) {
                   style = { fontWeight: 'bold',
 
-fontSize: "14px",
-marginLeft: "auto",
-marginRight: "auto"
+                    fontSize: "14px",
+                    marginLeft: "auto",
+                    marginRight: "auto"
 
 
 
@@ -155,9 +160,9 @@ marginRight: "auto"
                   style = { textDecorationLine: 'line-through',
 
 
-fontSize: "14px",
-marginLeft: "auto",
-marginRight: "auto"
+                    fontSize: "14px",
+                    marginLeft: "auto",
+                    marginRight: "auto"
 
 
 
@@ -174,11 +179,14 @@ marginRight: "auto"
               );
             })}
 
-            <Text style={styles.answerStyle}>{answer.isCorrect ? "Correct" : "Incorrect"}</Text>
+
+            <Text style={styles.answerStyle}>{answer.isCorrect ? "Correct" : "Incorrect"}
+            </Text>
           </View>
         );
       })}
     </View>
+    //the is correct or is incorrect shows at the bottom of the results
   );
 };
 

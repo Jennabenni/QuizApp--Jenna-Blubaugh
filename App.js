@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet } from 'react-native';
+
 import QuestionComponent from './questionComponent';
 import SummaryComponent from './summaryComponent';
 
@@ -9,12 +9,21 @@ import SummaryComponent from './summaryComponent';
 
 
 
-
-
-
-
-
 const Stack = createStackNavigator();
+
+
+/*The answers are
+red
+ostrich, emu
+tomato
+false
+red and yellow
+
+
+
+
+
+*/
 
 const questions = [
   {
@@ -51,6 +60,14 @@ const questions = [
 
 const App = () => {
   return (
+
+    /*this here shows both screens, the question screen and the summary screen
+
+    this also shows what params it takes
+    while the data is here, the formatting for what is sent to summary and the correct and incorrect answers are passed between components
+
+
+    */
 
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Question">

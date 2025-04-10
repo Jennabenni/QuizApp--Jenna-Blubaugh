@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native';
 
 
 
-
+//These are the styles
 const styles = StyleSheet.create({
 
   questionHeader: {
@@ -50,7 +50,7 @@ color: "black"
 
 
 
-
+/*Shows where the question routes to next, prevents user from skipping to next question before answering */
 
 const QuestionComponent = ({ route, navigation }) => {
   const { questions, currentQuestionIndex, answers } = route.params;
@@ -63,7 +63,9 @@ const QuestionComponent = ({ route, navigation }) => {
       alert('Please select at least one answer before proceeding.');
       return;
     }
+//updates answers array with current question
 
+//selected answer stores what the user puts in
     const updatedAnswers = [...answers];
     updatedAnswers.push({
       questionIndex: currentQuestionIndex,
@@ -71,6 +73,9 @@ const QuestionComponent = ({ route, navigation }) => {
       correctAnswer: question.correct,
     });
 
+
+    //goes through questions until end
+//if more questoions, you keep going
     if (currentQuestionIndex + 1 < questions.length) {
       navigation.push('Question', {
         questions,
@@ -78,6 +83,7 @@ const QuestionComponent = ({ route, navigation }) => {
         answers: updatedAnswers,
       });
     } else {
+      //no more questions? go to summary
       navigation.navigate('Summary', {
         answers: updatedAnswers,
         questions,
@@ -87,18 +93,23 @@ const QuestionComponent = ({ route, navigation }) => {
 
   const handleAnswerChange = (index) => {
     if (question.type === 'multiple-answer') {
-      // Toggle selection for multiple-answer questions
+      // multiple-answer questions
       if (selectedIndex.includes(index)) {
         setSelectedIndex(selectedIndex.filter(i => i !== index));
       } else {
         setSelectedIndex([...selectedIndex, index]);
       }
     } else {
-      // Single selection for single-answer questions
+      //single-answer questions
       setSelectedIndex([index]);
     }
   };
 
+
+
+  //this gives the format for the questions themselves, and this is also how to put the styling
+
+  //the props are passed to here to make the format
   return (
     <View style={styles.backgroundStyle}>
       <Text style={styles.questionHeader}>{question.prompt}</Text>
